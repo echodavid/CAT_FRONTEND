@@ -19,7 +19,7 @@ jobs:
     - run: touch .env
     - run: echo 'API_URL=${{secrets.API_URL}}'  >> .env
     - run: cat .env
-    - run: docker build -t echodavid/front-users:${{github.sha}} .
+    - run: docker build -t echodavid/cat_frontend:${{github.sha}} -t echodavid/cat_frontend:latest .
     - run: docker images
    
     - name: docker login
@@ -28,5 +28,8 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       
-    - name: docker push
-      run:  docker push ${{ secrets.DOCKER_USER}}/front-users:${{github.sha}}   
+    - name: docker push with commit SHA
+      run:  docker push echodavid/cat_frontend:${{github.sha}}
+      
+    - name: docker push latest tag
+      run:  docker push echodavid/cat_frontend:latest
