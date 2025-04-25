@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Gatos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Gestión de Gatos</h1>
+
+    <div id="resultado" class="mt-4">
+      <div class="d-flex justify-content-between mb-3">
+        <h3>Todos los Gatos</h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#catModal" onclick="clearForm()">Agregar Gato</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Raza</th>
+              <th>Edad</th>
+              <th>Color</th>
+              <th>Imagen</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="resultado-body">
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-3">
+        <button type="button" class="btn btn-secondary" onclick="getCats()">Actualizar Gatos</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="catModal" tabindex="-1" aria-labelledby="catModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="catModalLabel">Agregar / Actualizar Gato</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="catForm">
+            <input type="hidden" id="id" placeholder="ID del Gato (para Actualizar)">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="name" placeholder="Ingresa el nombre del gato">
+            </div>
+            <div class="mb-3">
+              <label for="breed" class="form-label">Raza</label>
+              <input type="text" class="form-control" id="breed" placeholder="Ingresa la raza del gato">
+            </div>
+            <div class="mb-3">
+              <label for="age" class="form-label">Edad</label>
+              <input type="number" class="form-control" id="age" placeholder="Ingresa la edad del gato">
+            </div>
+            <div class="mb-3">
+              <label for="color" class="form-label">Color</label>
+              <input type="text" class="form-control" id="color" placeholder="Ingresa el color del gato">
+            </div>
+            <div class="mb-3">
+              <label for="image_url" class="form-label">URL de Imagen</label>
+              <input type="text" class="form-control" id="image_url" placeholder="Ingresa la URL de la imagen">
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Descripción</label>
+              <textarea class="form-control" id="description" rows="3" placeholder="Ingresa una descripción"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="saveCat()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script id="env"></script>
+  <script src="cats.js"></script>
+  <script>
+    $(document).ready(function () {
+      getCats();
+    });
+  </script>
+
+  <div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
+  </div>
+</body>
+</html>

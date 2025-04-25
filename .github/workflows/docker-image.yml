@@ -1,0 +1,32 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - run: echo 'hello world ...'
+    - run: ls -la
+    - run: touch .env
+    - run: echo 'API_URL=${{secrets.API_URL}}'  >> .env
+    - run: cat .env
+    - run: docker build -t echodavid/front-users:${{github.sha}} .
+    - run: docker images
+   
+    - name: docker login
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      
+    - name: docker push
+      run:  docker push ${{ secrets.DOCKER_USER}}/front-users:${{github.sha}}   
